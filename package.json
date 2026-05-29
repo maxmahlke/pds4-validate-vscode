@@ -1,0 +1,66 @@
+{
+  "name": "pds4-validate",
+  "displayName": "pds4-validate",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.103.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      { 
+		"command": "pds4-validate.validateCurrentFile",
+		"title": "Validate Current File - PDS4"
+    },
+    {
+    "command": "pds4-validate.validateCurrentFileWithArguments",
+    "title": "Validate Current File With Arguments - PDS4"
+    },
+    {
+    "command": "pds4-validate.clearValidationArguments",
+    "title": "Clear Validation Arguments History - PDS4"
+    },
+    {
+    "command": "pds4-validate.editValidationPreset",
+    "title": "Edit Validation Preset - PDS4"
+    },
+    {
+    "command": "pds4-validate.compareCurrentAndPreviousReport",
+    "title": "Compare Current And Previous Validation Report - PDS4"
+      }
+    ],
+    "configuration": {
+      "title": "PDS4 Validate",
+      "properties": {
+        "pds4-validate.validateBinaryPath": {
+          "type": "string",
+          "default": "",
+          "description": "Path to the validate binary. If empty, the extension uses 'validate' from PATH."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@types/vscode": "^1.103.0",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2",
+    "eslint": "^9.39.3",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.56.1"
+  }
+}
