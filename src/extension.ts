@@ -148,39 +148,39 @@ function tokenizeArgs(args: string): string[] {
 	return tokens;
 }
 
-function extractTargetPathFromArgs(args: string): string | undefined {
+function extractReportPathFromArgs(args: string): string | undefined {
 	const tokens = tokenizeArgs(args);
 
 	for (let index = 0; index < tokens.length; index += 1) {
 		const token = tokens[index];
-		if (token === '--target' || token === '-t') {
+		if (token === '--report-file' || token === '-r') {
 			const next = tokens[index + 1];
 			return next && !next.startsWith('-') ? next : undefined;
 		}
 
-		if (token.startsWith('--target=')) {
-			return token.slice('--target='.length);
+		if (token.startsWith('--report-file=')) {
+			return token.slice('--report-file='.length);
 		}
 
-		if (token.startsWith('-t=')) {
-			return token.slice('-t='.length);
+		if (token.startsWith('-r=')) {
+			return token.slice('-r='.length);
 		}
 	}
 
 	return undefined;
 }
 
-function resolveTargetPath(targetPath: string, validatedFilePath: string): string {
-	if (path.isAbsolute(targetPath)) {
-		return targetPath;
+function resolveReportPath(reportPath: string, validatedFilePath: string): string {
+	if (path.isAbsolute(reportPath)) {
+		return reportPath;
 	}
 
-	return path.resolve(path.dirname(validatedFilePath), targetPath);
+	return path.resolve(path.dirname(validatedFilePath), reportPath);
 }
 
 function getEffectiveReportPath(filePath: string, validateArgs: string): string {
-	const targetFromArgs = extractTargetPathFromArgs(validateArgs);
-	return targetFromArgs ? resolveTargetPath(targetFromArgs, filePath) : getValidationReportPath(filePath);
+	const reportFromArgs = extractReportPathFromArgs(validateArgs);
+	return reportFromArgs ? resolveReportPath(reportFromArgs, filePath) : getValidationReportPath(filePath);
 }
 
 function getValidateBinaryPath(): string {
@@ -391,9 +391,9 @@ async function runValidationInTerminal(
 	const errorFile = path.join(tempDir, 'validate-stderr.txt');
 	const exitFile = path.join(tempDir, 'validate-exit.txt');
 	const fileDir = path.dirname(filePath);
-	const targetFromArgs = extractTargetPathFromArgs(validateArgs);
-	const reportPath = targetFromArgs ? resolveTargetPath(targetFromArgs, filePath) : getValidationReportPath(filePath);
-	const autoTargetSegment = targetFromArgs ? '' : `--target ${quoteForShell(reportPath)} `;
+	const reportFromArgs = extractReportPathFromArgs(validateArgs);
+	const reportPath = reportFromArgs ? resolveReportPath(reportFromArgs, filePath) : getValidationReportPath(filePath);
+	const autoReportSegment = reportFromArgs ? '' : `--report-file ${quoteForShell(reportPath)} `;
 
 	const quotedFilePath = quoteForShell(filePath);
 	const quotedFileDir = quoteForShell(fileDir);
@@ -401,11 +401,11 @@ async function runValidationInTerminal(
 	const quotedErrorFile = quoteForShell(errorFile);
 	const quotedExitFile = quoteForShell(exitFile);
 	const argsSegment = validateArgs ? `${validateArgs} ` : '';
-	const shellCommand = `cd ${quotedFileDir} && ${quotedValidateBinaryPath} ${argsSegment}${autoTargetSegment}${quotedFilePath} 2> ${quotedErrorFile}; printf "%s" "$?" > ${quotedExitFile}`;
+	const shellCommand = `cd ${quotedFileDir} && ${quotedValidateBinaryPath} ${argsSegment}${autoReportSegment}${quotedFilePath} 2> ${quotedErrorFile}; printf "%s" "$?" > ${quotedExitFile}`;
 
 	const shownArgs = validateArgs ? ` ${validateArgs}` : '';
 	output.appendLine(`Running in terminal: ${validateBinaryPath}${shownArgs} \"${filePath}\"`);
-	output.appendLine(`Using validate target output: ${reportPath}`);
+	output.appendLine(`Using validate report-file output: ${reportPath}`);
 	terminal.sendText(shellCommand, true);
 
 	const hasExitFile = await waitForFile(exitFile, 10 * 60 * 1000);
@@ -433,12 +433,12 @@ async function runValidationInTerminal(
 	let effectiveOutput = '';
 	try {
 		effectiveOutput = await fs.readFile(reportPath, 'utf8');
-		output.appendLine(`Loaded validation report from target file: ${reportPath}`);
+		output.appendLine(`Loaded validation report from report file: ${reportPath}`);
 	} catch (error: unknown) {
 		const message = error instanceof Error ? error.message : String(error);
 		const stderrHint = rawErrorOutput.trim().length > 0 ? `\n\nStderr:\n${rawErrorOutput.trim()}` : '';
-		effectiveOutput = `Validation did not produce a readable target report at ${reportPath}: ${message}${stderrHint}`;
-		output.appendLine(`Could not read validate target file (${reportPath}): ${message}`);
+		effectiveOutput = `Validation did not produce a readable report file at ${reportPath}: ${message}${stderrHint}`;
+		output.appendLine(`Could not read validate report file (${reportPath}): ${message}`);
 	}
 
 	if (exitCode === 1) {

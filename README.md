@@ -20,7 +20,7 @@ When validation is started, the extension:
 	 - Input file: `bundle_foo.xml`
 	 - Report file: `validate_bundle_foo.txt`
 
-	 If your selected arguments already include `--target` or `-t`, that target path is used instead.
+	 If your selected arguments already include `--report-file` or `-r`, that report path is used instead.
 
 4. Parses WARNING and ERROR lines from validate output.
 5. Ingests those as VS Code diagnostics on the validated file.
@@ -51,7 +51,7 @@ Open Command Palette and run:
 
 5. Compare Current And Previous Validation Report - PDS4
 	 - Opens a diff view between:
-		 - Current report: the most recent target report file
+		 - Current report: the most recent report file
 		 - Previous report: `.previous_validate_report.txt`
 
 ## Configuration
@@ -110,26 +110,26 @@ This gives you:
 - Entries in the Problems view.
 - Click-to-jump navigation to referenced lines.
 
-## Target Output Handling
+## Report File Handling
 
-The extension always uses validate's target-file output for the report.
+The extension always uses validate's report-file output for the report.
 
 The extension handles this by:
 
-1. Detecting target arguments in common forms:
-	 - --target value
-	 - --target=value
-	 - -t value
-	 - -t=value
-2. Preferring the user-provided target path when one is already present.
-3. Otherwise adding `--target validate_<base>.txt` automatically.
-4. Reading diagnostics and report contents from that target file.
+1. Detecting report-file arguments in common forms:
+	 - --report-file value
+	 - --report-file=value
+	 - -r value
+	 - -r=value
+2. Preferring the user-provided report path when one is already present.
+3. Otherwise adding `--report-file validate_<base>.txt` automatically.
+4. Reading diagnostics and report contents from that report file.
 
 ## Report History And Comparison
 
 On each run, the extension keeps the last report as a previous snapshot before writing the new report.
 
-- Current report: the active target report path for the last run
+- Current report: the active report path for the last run
 - Previous report: .previous_validate_report.txt
 
 Use Compare Current And Previous Validation Report - PDS4 to open a diff between both files.
