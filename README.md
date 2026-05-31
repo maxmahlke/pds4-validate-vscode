@@ -1,11 +1,11 @@
-Use Visual Studio code to uun the PDS [validate]https://github.com/nasa-pds/validate) tool on the
-currently open file and inspect the results without leaving the editor.
+Use Visual Studio code to run the PDS [validate](https://github.com/nasa-pds/validate) tool on the
+currently open file and have the diagnostics (WARNINGs, ERRORs) displayed in the editor.
 
 ![](https://github.com/maxmahlke/pds4-validate-vscode/blob/main/doc/showcase.png?raw=true)
 
 - Runs validation asynchronously without blocking the editor
 - Keep a persistent report file next to the validated product
-- Surface warning and error messages directly in the Problems panel and in-file diagnostics - no context switching
+- No contetx switching: Displays warning and error messages directly in the Problems panel and in-file diagnostics
 - Supports run-time argument changes and reusable workspace presets
 
 ## What The Extension Does
@@ -51,7 +51,7 @@ Open Command Palette and run:
 
 ## Configuration
 
-The extension contributes one VS Code setting:
+The extension adds one VS Code setting:
 
 1. pds4-validate.validateBinaryPath
 	 - Type: string
@@ -59,16 +59,6 @@ The extension contributes one VS Code setting:
 	 - Behavior:
 		 - If set: uses this exact binary path.
 		 - If empty: uses validate resolved from PATH.
-
-## Runtime Arguments And Presets
-
-Because validation flags can change frequently during the day, argument
-selection is run-time driven (not a static settings-only workflow).
-
-### Last-used and recent args
-
-- Last-used args are automatically reused by Validate Current File - PDS4.
-- Recent args are available in the With Arguments command picker.
 
 ### Workspace preset file
 
