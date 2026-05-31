@@ -98,15 +98,5 @@ These presets appear in the With Arguments quick picker. You can update the pres
 
 ### Report File Handling
 
-The extension always uses validate's report-file output for the report.
-
-The extension handles this by:
-
-1. Detecting report-file arguments in common forms:
-	 - --report-file value
-	 - --report-file=value
-	 - -r value
-	 - -r=value
-2. Preferring the user-provided report path when one is already present.
-3. Otherwise adding `--report-file validate_<base>.txt` automatically.
-4. Reading diagnostics and report contents from that report file.
+The extension always uses validate's report-file output for the report. If a report-file is defined via the `-r|--report-file` arguments,
+this file is used. Else, the extension uses `--report-file validate_<base>.txt` automatically, where `<base>` is the basename of the validated file.
