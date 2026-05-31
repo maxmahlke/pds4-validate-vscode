@@ -3,6 +3,10 @@
   "displayName": "pds4-validate",
   "description": "",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maxmahlke/pds4-validate-vscode"
+  },
   "engines": {
     "vscode": "^1.103.0"
   },
