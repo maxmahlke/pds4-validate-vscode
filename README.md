@@ -5,7 +5,7 @@ currently open file and have the diagnostics (WARNINGs, ERRORs) displayed in the
 
 - Runs validation asynchronously without blocking the editor
 - Keep a persistent report file next to the validated product
-- No contetx switching: Displays warning and error messages directly in the Problems panel and in-file diagnostics
+- Displays warning and error messages directly in the Problems panel and in-file diagnostics
 - Supports run-time argument changes and reusable workspace presets
 
 ## Install
