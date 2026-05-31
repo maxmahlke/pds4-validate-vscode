@@ -429,7 +429,6 @@ async function runValidationInTerminal(
 	let effectiveOutput = '';
 	try {
 		effectiveOutput = await fs.readFile(reportPath, 'utf8');
-		output.appendLine(`Loaded validation report from report file: ${reportPath}`);
 	} catch (error: unknown) {
 		const message = error instanceof Error ? error.message : String(error);
 		const stderrHint = rawErrorOutput.trim().length > 0 ? `\n\nStderr:\n${rawErrorOutput.trim()}` : '';
