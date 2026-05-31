@@ -1,5 +1,14 @@
+# pds4-validate-vscode
+
+<p align="center">
+  <a href="https://github.com/maxmahlke/pds4-validate-vscode#features"> Features </a> - <a href="https://github.com/maxmahlke/pds4-validate-vscode#install"> Install </a> - <a href="https://github.com/maxmahlke/pds4-validate-vscode#usage"> Usage - <a href="https://github.com/maxmahlke/pds4-validate-vscode#configuration"> Configuration </a>
+</p>
+
+
 Use Visual Studio code to run the PDS [validate](https://github.com/nasa-pds/validate) tool on the
-currently open file and have the diagnostics (WARNINGs, ERRORs) displayed in the editor.
+currently open file and have the diagnostics displayed in the editor.
+
+## Features
 
 ![](https://github.com/maxmahlke/pds4-validate-vscode/blob/main/doc/showcase.png?raw=true)
 
@@ -31,13 +40,7 @@ vsce package
 
 4. In VS Code, run `Extensions: Install from VSIX...` from the Command Palette and select the generated `.vsix` file.
 
-
-### Requirements
-
-You must have the PDS validate tool available either:
-
-1. On PATH as validate, or
-2. Via pds4-validate.validateBinaryPath setting.
+Note: You must have the PDS validate tool available either on `PATH` as `validate`, or via `pds4-validate.validateBinaryPath` setting.
 
 ## Usage
 
@@ -91,9 +94,7 @@ Format:
 }
 ```
 
-These presets appear in the With Arguments quick picker.
-
-You can update the preset file through Edit Validation Preset - PDS4.
+These presets appear in the With Arguments quick picker. You can update the preset file through Edit Validation Preset - PDS4.
 
 ### Report File Handling
 
