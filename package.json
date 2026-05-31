@@ -26,10 +26,6 @@
     "title": "Validate Current File With Arguments - PDS4"
     },
     {
-    "command": "pds4-validate.clearValidationArguments",
-    "title": "Clear Validation Arguments History - PDS4"
-    },
-    {
     "command": "pds4-validate.editValidationPreset",
     "title": "Edit Validation Preset - PDS4"
       }

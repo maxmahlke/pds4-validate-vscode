@@ -589,12 +589,6 @@ export function activate(context: vscode.ExtensionContext) {
 		runValidation(filePath, selectedArgs);
 	});
 
-	const clearArgs = vscode.commands.registerCommand('pds4-validate.clearValidationArguments', async () => {
-		await context.workspaceState.update(LAST_ARGS_KEY, '');
-		await context.workspaceState.update(RECENT_ARGS_KEY, []);
-		void vscode.window.showInformationMessage('Cleared validation arguments history.');
-	});
-
 	const editPreset = vscode.commands.registerCommand('pds4-validate.editValidationPreset', async () => {
 		const folder = getWorkspaceFolderForPresetCommands();
 		if (!folder) {
@@ -643,7 +637,7 @@ export function activate(context: vscode.ExtensionContext) {
 		void vscode.window.showInformationMessage(`Updated preset '${nextName.trim()}'.`);
 	});
 
-	context.subscriptions.push(runWithArgs, clearArgs, editPreset);
+	context.subscriptions.push(runWithArgs, editPreset);
 }
 
 // This method is called when your extension is deactivated

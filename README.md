@@ -42,10 +42,7 @@ Open Command Palette and run:
 		 - Pick from recent argument history
 	 - Saves selected args as last-used args.
 
-3. Clear Validation Arguments History - PDS4
-	 - Clears last-used and recent argument history stored by the extension.
-
-4. Edit Validation Preset - PDS4
+3. Edit Validation Preset - PDS4
 	 - Creates the preset file if it does not exist yet.
 	 - Lets you select an existing preset and update name/args.
 
