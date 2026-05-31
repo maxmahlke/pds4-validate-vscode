@@ -123,14 +123,6 @@ function getValidationReportPath(filePath: string): string {
 	return path.join(path.dirname(filePath), `validate_${baseNameWithoutExtension}.txt`);
 }
 
-async function showValidationReport(reportPath: string): Promise<void> {
-	const document = await vscode.workspace.openTextDocument(vscode.Uri.file(reportPath));
-	await vscode.window.showTextDocument(document, {
-		preview: false,
-		preserveFocus: true
-	});
-}
-
 function quoteForShell(value: string): string {
 	return `'${value.replace(/'/g, `'\\''`)}'`;
 }
@@ -463,8 +455,6 @@ async function runValidationInTerminal(
 	output.appendLine(`Saved validation report: ${reportPath}`);
 
 	await updateDiagnosticsForFile(filePath, effectiveOutput, diagnostics, output);
-
-	await showValidationReport(reportPath);
 
 	if (exitCode === 0) {
 		void vscode.window.showInformationMessage('Validation completed successfully.');
