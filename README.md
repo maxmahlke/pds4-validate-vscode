@@ -8,25 +8,38 @@ currently open file and have the diagnostics (WARNINGs, ERRORs) displayed in the
 - No contetx switching: Displays warning and error messages directly in the Problems panel and in-file diagnostics
 - Supports run-time argument changes and reusable workspace presets
 
-## What The Extension Does
+## Install
 
-When validation is started, the extension:
+1. Clone the repository and enter the project folder.
 
-1. Runs validate on the current file in a dedicated VS Code terminal.
-2. Saves a report file named:
+```bash
+git clone https://github.com/maxmahlke/pds4-validate-vscode.git
+cd pds4-validate-vscode
+```
 
-	 `validate_<base file name>.txt`
+2. Install `vsce` (if you do not already have it).
 
-	 Example:
-	 - Input file: `bundle_foo.xml`
-	 - Report file: `validate_bundle_foo.txt`
+```bash
+npm install -g @vscode/vsce
+```
 
-	 If your selected arguments already include `--report-file` or `-r`, that report path is used instead.
+3. Package the extension as a VSIX file.
 
-3. Parses WARNING and ERROR lines from validate output.
-4. Ingests those as VS Code diagnostics on the validated file.
+```bash
+vsce package
+```
 
-## Commands (User Interface)
+4. In VS Code, run `Extensions: Install from VSIX...` from the Command Palette and select the generated `.vsix` file.
+
+
+### Requirements
+
+You must have the PDS validate tool available either:
+
+1. On PATH as validate, or
+2. Via pds4-validate.validateBinaryPath setting.
+
+## Usage
 
 Open Command Palette and run:
 
@@ -82,17 +95,7 @@ These presets appear in the With Arguments quick picker.
 
 You can update the preset file through Edit Validation Preset - PDS4.
 
-## Diagnostics And Problems Integration
-
-The extension scans validate output lines formatted like WARNING or ERROR messages and creates diagnostics in the active file.
-
-This gives you:
-
-- Highlights in the editor gutter/squiggles.
-- Entries in the Problems view.
-- Click-to-jump navigation to referenced lines.
-
-## Report File Handling
+### Report File Handling
 
 The extension always uses validate's report-file output for the report.
 
@@ -106,10 +109,3 @@ The extension handles this by:
 2. Preferring the user-provided report path when one is already present.
 3. Otherwise adding `--report-file validate_<base>.txt` automatically.
 4. Reading diagnostics and report contents from that report file.
-
-## Requirements
-
-You must have the PDS validate tool available either:
-
-1. On PATH as validate, or
-2. Via pds4-validate.validateBinaryPath setting.
