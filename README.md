@@ -5,8 +5,8 @@
 </p>
 
 
-Use Visual Studio code to run the PDS [validate](https://github.com/nasa-pds/validate) tool on the
-currently open file and have the diagnostics displayed in the editor.
+Use Visual Studio code to run PDS [validate](https://github.com/nasa-pds/validate) on the
+currently open file and display the diagnostics in the editor.
 
 ## Features
 
