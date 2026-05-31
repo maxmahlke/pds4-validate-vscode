@@ -11,8 +11,7 @@ currently open file and inspect the results without leaving the editor.
 When validation is started, the extension:
 
 1. Runs validate on the current file in a dedicated VS Code terminal.
-2. Always runs validate with a report file and records the exit code.
-3. Saves a report file named:
+2. Saves a report file named:
 
 	 `validate_<base file name>.txt`
 
@@ -22,9 +21,8 @@ When validation is started, the extension:
 
 	 If your selected arguments already include `--report-file` or `-r`, that report path is used instead.
 
-4. Parses WARNING and ERROR lines from validate output.
-5. Ingests those as VS Code diagnostics on the validated file.
-6. Opens the saved report file in the background (does not steal focus).
+3. Parses WARNING and ERROR lines from validate output.
+4. Ingests those as VS Code diagnostics on the validated file.
 
 ## Commands (User Interface)
 
