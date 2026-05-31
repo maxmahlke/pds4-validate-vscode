@@ -1,6 +1,8 @@
 Use Visual Studio code to uun the PDS [validate]https://github.com/nasa-pds/validate) tool on the
 currently open file and inspect the results without leaving the editor.
 
+![](https://github.com/maxmahlke/pds4-validate-vscode/blob/main/doc/showcase.png?raw=true)
+
 - Runs validation asynchronously without blocking the editor
 - Keep a persistent report file next to the validated product
 - Surface warning and error messages directly in the Problems panel and in-file diagnostics - no context switching
