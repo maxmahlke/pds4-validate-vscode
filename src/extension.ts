@@ -95,11 +95,15 @@ async function updateDiagnosticsForFile(
 		const lineLength = document.lineAt(lineIndex).text.length;
 		const startChar = Math.min(columnIndex, lineLength);
 		const endChar = Math.min(startChar + 1, Math.max(lineLength, 1));
+		const severity = entry.level === 'ERROR' ? vscode.DiagnosticSeverity.Error : vscode.DiagnosticSeverity.Warning;
+		const range = severity === vscode.DiagnosticSeverity.Warning
+			? new vscode.Range(lineIndex, 0, lineIndex, lineLength)
+			: new vscode.Range(lineIndex, startChar, lineIndex, endChar);
 
 		const diagnostic = new vscode.Diagnostic(
-			new vscode.Range(lineIndex, startChar, lineIndex, endChar),
+			range,
 			`[${entry.label}] ${entry.message}`,
-			entry.level === 'ERROR' ? vscode.DiagnosticSeverity.Error : vscode.DiagnosticSeverity.Warning
+			severity
 		);
 		diagnostic.source = 'pds4-validate';
 		diagnostic.code = entry.label;
