@@ -11,7 +11,7 @@ currently open file and inspect the results without leaving the editor.
 When validation is started, the extension:
 
 1. Runs validate on the current file in a dedicated VS Code terminal.
-2. Always runs validate with a target report file and records the exit code.
+2. Always runs validate with a report file and records the exit code.
 3. Saves a report file named:
 
 	 `validate_<base file name>.txt`
@@ -48,11 +48,6 @@ Open Command Palette and run:
 4. Edit Validation Preset - PDS4
 	 - Creates the preset file if it does not exist yet.
 	 - Lets you select an existing preset and update name/args.
-
-5. Compare Current And Previous Validation Report - PDS4
-	 - Opens a diff view between:
-		 - Current report: the most recent report file
-		 - Previous report: `.previous_validate_report.txt`
 
 ## Configuration
 
@@ -124,15 +119,6 @@ The extension handles this by:
 2. Preferring the user-provided report path when one is already present.
 3. Otherwise adding `--report-file validate_<base>.txt` automatically.
 4. Reading diagnostics and report contents from that report file.
-
-## Report History And Comparison
-
-On each run, the extension keeps the last report as a previous snapshot before writing the new report.
-
-- Current report: the active report path for the last run
-- Previous report: .previous_validate_report.txt
-
-Use Compare Current And Previous Validation Report - PDS4 to open a diff between both files.
 
 ## Requirements
 

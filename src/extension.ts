@@ -119,10 +119,6 @@ function getValidationReportPath(filePath: string): string {
 	return path.join(path.dirname(filePath), `validate_${baseNameWithoutExtension}.txt`);
 }
 
-function getPreviousValidationReportPath(reportPath: string): string {
-	return path.join(path.dirname(reportPath), '.previous_validate_report.txt');
-}
-
 async function showValidationReport(reportPath: string): Promise<void> {
 	const document = await vscode.workspace.openTextDocument(vscode.Uri.file(reportPath));
 	await vscode.window.showTextDocument(document, {
@@ -460,13 +456,6 @@ async function runValidationInTerminal(
 	});
 
 	const reportContent = buildValidationReport(filePath, exitCode, effectiveOutput);
-	const previousReportPath = getPreviousValidationReportPath(reportPath);
-	if (await fileExists(reportPath)) {
-		const previousContent = await fs.readFile(reportPath, 'utf8').catch(() => '');
-		if (previousContent.length > 0) {
-			await fs.writeFile(previousReportPath, previousContent, 'utf8');
-		}
-	}
 	await fs.writeFile(reportPath, reportContent, 'utf8');
 	output.appendLine(`Saved validation report: ${reportPath}`);
 
@@ -661,35 +650,7 @@ export function activate(context: vscode.ExtensionContext) {
 		void vscode.window.showInformationMessage(`Updated preset '${nextName.trim()}'.`);
 	});
 
-	const compareReports = vscode.commands.registerCommand('pds4-validate.compareCurrentAndPreviousReport', async () => {
-		const lastRun = context.workspaceState.get<{ filePath?: string; reportPath?: string }>('pds4-validate.lastRun');
-		const filePath = lastRun?.filePath;
-		const reportPath = lastRun?.reportPath ?? (filePath ? getEffectiveReportPath(filePath, getLastArgs(context)) : undefined);
-		if (!filePath || !reportPath) {
-			void vscode.window.showInformationMessage('No previous validation run found to compare.');
-			return;
-		}
-
-		const currentReportPath = reportPath;
-		const previousReportPath = getPreviousValidationReportPath(reportPath);
-		if (!(await fileExists(currentReportPath))) {
-			void vscode.window.showInformationMessage('Current report file does not exist yet.');
-			return;
-		}
-		if (!(await fileExists(previousReportPath))) {
-			void vscode.window.showInformationMessage('No previous report file exists yet for comparison.');
-			return;
-		}
-
-		await vscode.commands.executeCommand(
-			'vscode.diff',
-			vscode.Uri.file(previousReportPath),
-			vscode.Uri.file(currentReportPath),
-			`PDS4 Validate Report Diff: ${path.basename(currentReportPath)}`
-		);
-	});
-
-	context.subscriptions.push(runWithArgs, clearArgs, editPreset, compareReports);
+	context.subscriptions.push(runWithArgs, clearArgs, editPreset);
 }
 
 // This method is called when your extension is deactivated

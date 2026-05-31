@@ -28,10 +28,6 @@
     {
     "command": "pds4-validate.editValidationPreset",
     "title": "Edit Validation Preset - PDS4"
-    },
-    {
-    "command": "pds4-validate.compareCurrentAndPreviousReport",
-    "title": "Compare Current And Previous Validation Report - PDS4"
       }
     ],
     "configuration": {
