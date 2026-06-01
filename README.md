@@ -19,6 +19,8 @@ currently open file and display the diagnostics in the editor.
 
 ## Install
 
+0. Ensure that you have the node.js package manager `npm` installed (e.g. via `brew install npm`).
+
 1. Clone the repository and enter the project folder.
 
 ```bash
@@ -26,9 +28,10 @@ git clone https://github.com/maxmahlke/pds4-validate-vscode.git
 cd pds4-validate-vscode
 ```
 
-2. Install `vsce` (if you do not already have it).
+2. Install `vsce` and other dependencies.
 
 ```bash
+npm install
 npm install -g @vscode/vsce
 ```
 
