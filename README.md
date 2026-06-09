@@ -19,31 +19,54 @@ currently open file and display the diagnostics in the editor.
 
 ## Install
 
-0. Ensure that you have the node.js package manager `npm` installed (e.g. via `brew install npm`).
+For macOS users, this is the recommended setup flow.
 
-1. Clone the repository and enter the project folder.
+1. Install prerequisites.
+
+```bash
+# Install Homebrew (if not installed): https://brew.sh
+brew install node git
+```
+
+`node` includes `npm`, so no separate `npm` package is required.
+
+2. Clone the repository and enter the project folder.
 
 ```bash
 git clone https://github.com/maxmahlke/pds4-validate-vscode.git
 cd pds4-validate-vscode
 ```
 
-2. Install `vsce` and other dependencies.
+3. Install project dependencies and the VS Code packaging tool.
 
 ```bash
 npm install
 npm install -g @vscode/vsce
 ```
 
-3. Package the extension as a VSIX file.
+4. Package the extension as a VSIX file.
 
 ```bash
 vsce package
 ```
 
-4. In VS Code, run `Extensions: Install from VSIX...` from the Command Palette and select the generated `.vsix` file.
+5. In VS Code, run `Extensions: Install from VSIX...` from the Command Palette and select the generated `.vsix` file.
 
-Note: You must have the PDS validate tool available either on `PATH` as `validate`, or via `pds4-validate.validateBinaryPath` setting.
+6. Ensure the PDS `validate` CLI is available.
+
+Either:
+- install/provide `validate` on your `PATH`, or
+- set `pds4-validate.validateBinaryPath` in VS Code to the full path of the `validate` binary.
+
+Quick check:
+
+```bash
+validate --help
+```
+
+If this command fails, configure `pds4-validate.validateBinaryPath` before running the extension.
+
+If your shell still cannot find `validate` after installation, restart VS Code so it picks up updated `PATH` settings.
 
 ## Usage
 
